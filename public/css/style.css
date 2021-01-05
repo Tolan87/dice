@@ -61,7 +61,7 @@ body {
 
 .card-body ul {
     display: table-cell;
-    height: 60px;
+    height: 70px;
     list-style: none;
     padding: 0;
 }
@@ -133,9 +133,9 @@ body {
 
 @media (max-width: 992px) {
     .notifications {
-        position: relative;
-        top: 10px;
-        /* right: calc(50% - 150px); */
+        position: absolute;
+        top: 575px;
+        right: calc(50% - 150px);
         display: flex;
         flex-direction: column-reverse;
     }   

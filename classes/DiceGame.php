@@ -77,9 +77,10 @@ class DiceGame {
                 array_pop($current_state["tavern_values"]);
 
             http_response_code(400);
-            return [
-                "message" => "Es wurden alle " . DICE_MAX_TURNS_BEFORE_END . " Runden gespielt. <br /><br /> Spiel wird ausgewertet..."
-            ];
+            return;
+            // return [
+            //     "message" => "Es wurden alle " . DICE_MAX_TURNS_BEFORE_END . " Runden gespielt. <br /><br /> Spiel wird ausgewertet..."
+            // ];
         }
 
         /* Sende nachdem würfeln nur die Werte des Spielers zurück, 

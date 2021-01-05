@@ -95,10 +95,10 @@ function roll() {
         }
         else if (xhttp.readyState == 4 && xhttp.status == 400) 
         {
-            if (response.message && response.message.length > 0)
+            /* if (response.message && response.message.length > 0)
             {
                 showNotification(response.message);
-            }
+            } */
 
             finishGame();
         }
@@ -233,7 +233,7 @@ function getPlayerMoney()
     xhttp.send("action=get_player_money");
 }
 
-function showNotification(message, duration = 7500)
+function showNotification(message, duration = 5000)
 {
     let parent = document.getElementById("notifications");
 
