@@ -165,7 +165,7 @@ function finishGame() {
 function onGameFinished()
 {
     stake.value = null;
-    stake.disabled = false;
+    stake.disabled = true;
     btnStake.disabled = true;
     btnDice.disabled = true;
     btnEnd.disabled = true;
@@ -176,7 +176,10 @@ function onGameFinished()
         i--;
 
         if (i == 0)
+        {
+            stake.disabled = false;
             clearInterval(clearInt);
+        }
     }, 1000);
 
     setTimeout(() => {
