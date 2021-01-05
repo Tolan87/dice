@@ -219,7 +219,7 @@ function addResult(element, result)
 function getPlayerMoney()
 {
     let xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
+    xhttp.onload = function() {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
             money.innerHTML = JSON.parse(xhttp.responseText).money;
         }
