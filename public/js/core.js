@@ -84,15 +84,14 @@ function roll() {
                 btnEnd.disabled = false;
             }
 
-            addPlayerResult(response.player_values);
+            addResult("player-result", response.player_values);
 
             // Solange wir würfeln erzeugen wir für die Taverne Würfel mit Fragezeichen
             let tavern_values = [];
             response.player_values.forEach((result) => {
                 tavern_values.push("0");
             });
-
-            addTavernResult(tavern_values);
+            addResult("tavern-result", tavern_values);
         }
         else if (xhttp.readyState == 4 && xhttp.status == 400) 
         {
@@ -120,8 +119,8 @@ function finishGame() {
                 // console.log(response.player_values);
                 // console.log(response.tavern_values);
 
-                addPlayerResult(response.player_values);
-                addTavernResult(response.tavern_values);
+                addResult("player-result", response.player_values);
+                addResult("tavern-result", response.tavern_values);
 
                 switch (response.won)
                 {
@@ -144,7 +143,7 @@ function finishGame() {
 
                 money.innerHTML = response.money;
 
-                resetGameControls();
+                onGameFinished();
         } 
         else if (xhttp.readyState == 4 && xhttp.status == 400) 
         {
@@ -163,7 +162,7 @@ function finishGame() {
     xhttp.send("action=dice_end");
 }
 
-function resetGameControls()
+function onGameFinished()
 {
     stake.value = null;
     stake.disabled = false;
@@ -195,9 +194,9 @@ function resetGameControls()
     }, 10000);
 }
 
-function addPlayerResult(result)
+function addResult(element, result)
 {
-    let parent = document.getElementById("player-result");
+    let parent = document.getElementById(element);
     
     // remove li elements from unordered list
     parent.querySelectorAll("li").forEach((item) => {
@@ -212,28 +211,6 @@ function addPlayerResult(result)
         imgNode.setAttribute("width", "30");
         imgNode.setAttribute("src", './img/dice_' + result[i] + '.png');
         
-        liNode.appendChild(imgNode);
-        parent.appendChild(liNode);
-    }
-}
-
-function addTavernResult(result)
-{
-    let parent = document.getElementById("tavern-result");
-    
-    // remove li elements from unordered list
-    parent.querySelectorAll("li").forEach((item) => {
-        item.remove();
-    });
-
-    for (let i = 0;i < result.length; i++) {
-        let liNode = document.createElement("li");
-        let imgNode = document.createElement("img");
-        imgNode.setAttribute("height", "30");
-        imgNode.setAttribute("width", "30");
-        
-        imgNode.setAttribute("src", './img/dice_' + result[i] + '.png');
-
         liNode.appendChild(imgNode);
         parent.appendChild(liNode);
     }
