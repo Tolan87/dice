@@ -26,7 +26,7 @@ class DiceGame {
         // Wenn genug Geld vorhanden, trage ein neues Spiel in die Datenbank ein
         $stmt = $this->db->prepare("INSERT INTO tavern (player_id, player_values, tavern_values, stake) VALUES (?, ?, ?, ?)");
         $stmt->bind_param("issi", $player_id, $player_values, $tavern_values, $stake);
-        $player_id = 2; // Hier sollte später die richtige id des nutzers benutzt werden z.B. $_SESSION["player_id"]
+        $player_id = 1; // Hier sollte später die richtige id des nutzers benutzt werden z.B. $_SESSION["player_id"]
         $player_values = "";
         $tavern_values = "";
 
@@ -55,7 +55,7 @@ class DiceGame {
         $stmt_update->bind_param("ssi", $player_arr, $tavern_arr, $player_id);
         $player_arr = implode(" ", $current_state["player_values"]); // Die Funktion implode macht aus dem array ein string mit Leerzeichen als Trennzeichen
         $tavern_arr = implode(" ", $current_state["tavern_values"]); // Die Funktion implode macht aus dem array ein string mit Leerzeichen als Trennzeichen
-        $player_id = 2; // Hier sollte später die richtige id des spielers benutzt werden z.B. $_SESSION["player_id"]
+        $player_id = 1; // Hier sollte später die richtige id des spielers benutzt werden z.B. $_SESSION["player_id"]
 
         $stmt_update->execute();
         $stmt_update->close();
@@ -93,7 +93,7 @@ class DiceGame {
     {
         $stmt_current_state = $this->db->prepare("SELECT player_values, tavern_values, stake FROM tavern WHERE player_id = ?");
         $stmt_current_state->bind_param("i", $player_id);
-        $player_id = 2; // Hier sollte später die richtige id des spielers benutzt werden z.B. $_SESSION["player_id"]
+        $player_id = 1; // Hier sollte später die richtige id des spielers benutzt werden z.B. $_SESSION["player_id"]
 
         $stmt_current_state->execute();
         $result_current = $stmt_current_state->get_result();
@@ -163,7 +163,7 @@ class DiceGame {
     {
         $stmt = $this->db->prepare("SELECT COUNT(*) AS count FROM tavern WHERE player_id = ?");
         $stmt->bind_param("i", $player_id);
-        $player_id = 2; // Hier sollte später die richtige id des nutzers benutzt werden z.B. $_SESSION["player_id"]
+        $player_id = 1; // Hier sollte später die richtige id des nutzers benutzt werden z.B. $_SESSION["player_id"]
 
         $stmt->execute();
         $result = $stmt->get_result();
@@ -180,7 +180,7 @@ class DiceGame {
     {
         $stmt = $this->db->prepare("SELECT money FROM players WHERE id = ?");
         $stmt->bind_param("i", $player_id);
-        $player_id = 2; // Hier sollte später die richtige id des spielers benutzt werden z.B. $_SESSION["player_id"]
+        $player_id = 1; // Hier sollte später die richtige id des spielers benutzt werden z.B. $_SESSION["player_id"]
 
         $stmt->execute();
         $result = $stmt->get_result();
@@ -195,7 +195,7 @@ class DiceGame {
     {
         $stmt_current_state = $this->db->prepare("SELECT player_values, tavern_values FROM tavern WHERE player_id = ?");
         $stmt_current_state->bind_param("i", $player_id);
-        $player_id = 2; // Hier sollte später die richtige id des spielers benutzt werden z.B. $_SESSION["player_id"]
+        $player_id = 1; // Hier sollte später die richtige id des spielers benutzt werden z.B. $_SESSION["player_id"]
 
         $stmt_current_state->execute();
         $result_current = $stmt_current_state->get_result();
@@ -219,7 +219,7 @@ class DiceGame {
     {
         $stmt = $this->db->prepare("DELETE FROM tavern WHERE player_id = ?");
         $stmt->bind_param("i", $player_id);
-        $player_id = 2; // Hier sollte später die richtige id des spielers benutzt werden z.B. $_SESSION["player_id"]
+        $player_id = 1; // Hier sollte später die richtige id des spielers benutzt werden z.B. $_SESSION["player_id"]
 
         $stmt->execute();
         $stmt->close();
@@ -229,7 +229,7 @@ class DiceGame {
     {
         $stmt = $this->db->prepare("UPDATE players SET money = ? WHERE id = ?");
         $stmt->bind_param("ii", $money, $player_id);
-        $player_id = 2; // Hier sollte später die richtige id des spielers benutzt werden z.B. $_SESSION["player_id"]
+        $player_id = 1; // Hier sollte später die richtige id des spielers benutzt werden z.B. $_SESSION["player_id"]
 
         $stmt->execute();
         $stmt->close();
