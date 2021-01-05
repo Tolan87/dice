@@ -1,18 +1,36 @@
 body {
+    background: url(../img/dice_bg_seamless_200.png) repeat center center;
+    background-size: cover;
     color: bisque;
     margin: 0;
     padding: 0;
-    width: 100%;
-}
-
-.container {
-    background: url(../img/dice_bg_seamless_200.png) repeat center center;
-    background-size: cover;
-    height: 100vh;
-    padding-top: 150px;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
+}
+
+@media (min-width: 992px) {
+    .container {
+        max-width: 960px;
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 720px;
+    }
+}
+
+@media (min-width: 576px) {
+    .container {
+        max-width: 540px;
+    }
+}
+
+.container {
+    margin: 0 auto;
+    padding-top: 75px;
+    width: 100%;
 }
 
 /* Card start */
@@ -103,10 +121,24 @@ body {
 
 /* Dice controls end */
 
-.notifications {
-    position: absolute;
-    top: 25px;
-    right: 30px;
+@media (min-width: 992px) {
+    .notifications {
+        position: absolute;
+        top: 25px;
+        right: 25px;
+        display: flex;
+        flex-direction: column-reverse;
+    }   
+}
+
+@media (max-width: 992px) {
+    .notifications {
+        position: relative;
+        top: 10px;
+        /* right: calc(50% - 150px); */
+        display: flex;
+        flex-direction: column-reverse;
+    }   
 }
 
 /* Button start */

@@ -50,7 +50,7 @@
     </div>
 
     <div id="notifications" class="notifications">
-        
+
     </div>
 
     <script src="./js/core.js"></script>
