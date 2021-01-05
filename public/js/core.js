@@ -91,7 +91,7 @@ function roll() {
             response.player_values.forEach((result) => {
                 tavern_values.push("0");
             });
-            addResult("tavern-result", tavern_values);
+            addResult("tavern-result", tavern_values, 1000);
         }
         else if (xhttp.readyState == 4 && xhttp.status == 400) 
         {
@@ -197,26 +197,28 @@ function onGameFinished()
     }, 10000);
 }
 
-function addResult(element, result)
+function addResult(element, result, delay = 0)
 {
     let parent = document.getElementById(element);
     
-    // remove li elements from unordered list
-    parent.querySelectorAll("li").forEach((item) => {
-        item.remove();
-    });
+    setTimeout(() => {
+        // remove li elements from unordered list
+        parent.querySelectorAll("li").forEach((item) => {
+            item.remove();
+        });
 
-    for (let i = 0;i < result.length; i++) {
-        let liNode = document.createElement("li");
+        for (let i = 0;i < result.length; i++) {
+            let liNode = document.createElement("li");
 
-        let imgNode = document.createElement("img");
-        imgNode.setAttribute("height", "30");
-        imgNode.setAttribute("width", "30");
-        imgNode.setAttribute("src", './img/dice_' + result[i] + '.png');
-        
-        liNode.appendChild(imgNode);
-        parent.appendChild(liNode);
-    }
+            let imgNode = document.createElement("img");
+            imgNode.setAttribute("height", "30");
+            imgNode.setAttribute("width", "30");
+            imgNode.setAttribute("src", './img/dice_' + result[i] + '.png');
+            
+            liNode.appendChild(imgNode);
+            parent.appendChild(liNode);
+        }
+    }, delay);
 }
 
 function getPlayerMoney()
