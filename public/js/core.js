@@ -171,6 +171,15 @@ function resetGameControls()
     btnDice.disabled = true;
     btnEnd.disabled = true;
 
+    let i = 10;
+    let clearInt = setInterval(() => {
+        showNotification("Spiel startet neu in " + i +" sekunden", 1000);
+        i--;
+
+        if (i == 0)
+            clearInterval(clearInt);
+    }, 1000);
+
     setTimeout(() => {
         document.getElementById("player-result").querySelectorAll("li").forEach((item, index) => {
             setTimeout(() => {
@@ -244,7 +253,7 @@ function getPlayerMoney()
     xhttp.send("action=get_player_money");
 }
 
-function showNotification(message)
+function showNotification(message, duration = 7500)
 {
     let parent = document.getElementById("notifications");
 
@@ -278,5 +287,5 @@ function showNotification(message)
                 clearInterval(clrIntervall);
             }
         }, 50);
-    }, 7500);
+    }, duration);
 }
