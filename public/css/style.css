@@ -1,0 +1,149 @@
+body {
+    color: bisque;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.container {
+    background: url(../img/dice_bg_seamless_200.png) repeat center center;
+    background-size: cover;
+    height: 100vh;
+    padding-top: 150px;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+/* Card start */
+
+.card {
+    background-color: rgba(63, 51, 30, 0.7);
+    border: 1px solid rgb(122, 98, 62);
+    border-radius: 10px;
+    margin: 0 auto;
+    width: 300px;
+}
+
+.card-header {
+    background: url(../img/bg-results.png) no-repeat center center;
+    border-bottom: 1px solid rgb(122, 98, 62);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    line-height: 1.2rem;
+    margin: 0;
+    padding: 15px 10px; 
+}
+
+.card-body {
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    margin-bottom: 10px;
+    padding: 20px 10px 0px;
+}
+
+.card-body ul {
+    display: table-cell;
+    height: 60px;
+    list-style: none;
+    padding: 0;
+}
+
+.card-body ul li {
+    float: left;
+    margin: 15px 10px;
+}
+
+.card-body ul li img {
+    border: 1px solid rgba(170, 170, 170, 0.562);
+}
+
+/* Card end */
+
+/* Card customizations start */
+
+.notification {
+    margin-bottom: 5px;
+}
+
+.notification-header {
+    font-weight: 500;
+    padding: 8px 10px; 
+}
+
+.notification-body {
+    padding: 10px 10px 0px;
+}
+
+/* Card customizsations end */
+
+/* Dice controls start */
+
+.controls {
+    margin-top: 20px;
+}
+
+.dice-label {
+    font-weight: bold; 
+    display: inline-block; 
+    margin: 5px 0px;
+}
+
+.dice-control {
+    background-color: rgb(111, 96, 54);
+    border: 1px solid rgb(165, 129, 65);
+    border-radius: 5px;
+    color:#e2dbab;
+    padding: 8px;
+    width: 262px;
+}
+
+.dice-control:focus {
+    outline: 0;
+}
+
+/* Dice controls end */
+
+.notifications {
+    position: absolute;
+    top: 25px;
+    right: 30px;
+}
+
+/* Button start */
+
+.btn {
+    background-color: rgb(107, 88, 47);
+    border: 1px solid rgb(142, 121, 77);
+    border-radius: 5px;
+    color: whitesmoke;
+    display: block; 
+    margin: 5px 0px;
+    height: 35px;
+    width: 279px;
+}
+
+.btn:hover {
+    background-color: rgb(105, 90, 57);
+}
+
+.btn:focus {
+    outline: none;
+}
+
+.btn:disabled {
+    background-color: rgb(146, 127, 92);
+}
+
+/* Button end */
+
+/* Helper start */
+
+.block {
+    display: block;
+}
+
+.clear {
+    clear: both;
+}
+
+/* Helper end */
