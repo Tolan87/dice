@@ -1,1 +1,4 @@
 config.inc.php
+
+# Ignore node modules
+node_modules/*

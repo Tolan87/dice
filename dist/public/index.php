@@ -53,7 +53,7 @@
 
     </div>
 
-    <script src="./js/core.js"></script>
+    <script src="./js/bundle.js"></script>
 </body>
 
 </html>
