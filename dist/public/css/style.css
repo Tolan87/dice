@@ -40,7 +40,7 @@ body {
     border: 1px solid rgb(122, 98, 62);
     border-radius: 10px;
     margin: 0 auto;
-    width: 300px;
+    width: 298px;
 }
 
 .card-header {
@@ -79,6 +79,26 @@ body {
 
 /* Card customizations start */
 
+@media (min-width: 992px) {
+    .notifications {
+        position: absolute;
+        top: 25px;
+        right: 25px;
+        display: flex;
+        flex-direction: column-reverse;
+    }   
+}
+
+@media (max-width: 992px) {
+    .notifications {
+        position: absolute;
+        top: 610px;
+        right: calc(50% - 150px);
+        display: flex;
+        flex-direction: column-reverse;
+    }   
+}
+
 .notification {
     margin-bottom: 5px;
 }
@@ -112,7 +132,7 @@ body {
     border-radius: 5px;
     color:#e2dbab;
     padding: 8px;
-    width: 262px;
+    width: 260px;
 }
 
 .dice-control:focus {
@@ -120,26 +140,6 @@ body {
 }
 
 /* Dice controls end */
-
-@media (min-width: 992px) {
-    .notifications {
-        position: absolute;
-        top: 25px;
-        right: 25px;
-        display: flex;
-        flex-direction: column-reverse;
-    }   
-}
-
-@media (max-width: 992px) {
-    .notifications {
-        position: absolute;
-        top: 575px;
-        right: calc(50% - 150px);
-        display: flex;
-        flex-direction: column-reverse;
-    }   
-}
 
 /* Button start */
 
@@ -151,7 +151,7 @@ body {
     display: block; 
     margin: 5px 0px;
     height: 35px;
-    width: 279px;
+    width: 278px;
 }
 
 .btn:hover {
@@ -179,3 +179,20 @@ body {
 }
 
 /* Helper end */
+
+/* Footer start */
+
+footer {
+    height: 30px;
+    margin: 5px auto;
+    text-align: center;
+    width: 300px;
+}
+
+footer a {
+    color: bisque;
+    padding: 5px;
+    text-decoration: underline;
+}
+
+/* Footer end */

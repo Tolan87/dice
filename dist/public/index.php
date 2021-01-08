@@ -18,22 +18,12 @@
             <div class="card-body">
                 <label style="display: block; border-bottom: 1px solid rgb(122, 98, 62);">Spieler</label>
                 <ul id="player-result">
-                    <!-- <li><img height="30" width="30" src="./img/dice_1"></li>
-                    <li><img height="30" width="30" src="./img/dice_2"></li>
-                    <li><img height="30" width="30" src="./img/dice_3"></li>
-                    <li><img height="30" width="30" src="./img/dice_4"></li>
-                    <li><img height="30" width="30" src="./img/dice_5"></li> -->
                 </ul>
 
                 <div class="clear"></div>
 
                 <label style="display: block; border-bottom: 1px solid rgb(122, 98, 62);">Taverne</label>
                 <ul id="tavern-result">
-                    <!-- <li><img height="30" width="30" src="./img/dice_5"></li>
-                    <li><img height="30" width="30" src="./img/dice_4"></li>
-                    <li><img height="30" width="30" src="./img/dice_3"></li>
-                    <li><img height="30" width="30" src="./img/dice_2"></li>
-                    <li><img height="30" width="30" src="./img/dice_1"></li> -->
                 </ul>
 
                 <div class="controls">
@@ -47,12 +37,15 @@
                 </div>
             </div>
         </div>
+
+        <footer>
+            <a href="#">Impressum</a>
+            <a href="#">Datenschutz</a>
+        </footer>
+
+        <div id="notifications" class="notifications">
+        </div>
     </div>
-
-    <div id="notifications" class="notifications">
-
-    </div>
-
     <script src="./js/bundle.js"></script>
 </body>
 
