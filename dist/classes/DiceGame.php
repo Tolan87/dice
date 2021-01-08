@@ -51,14 +51,7 @@ class DiceGame {
         array_push($current_state["tavern_values"], strval(random_int(1, 6)));
 
         // Schreibe neue Werte nachdem würfeln wieder zurück in die Datenbank
-        $stmt_update = $this->db->prepare("UPDATE tavern SET player_values = ?, tavern_values = ? WHERE player_id = ?");
-        $stmt_update->bind_param("ssi", $player_arr, $tavern_arr, $player_id);
-        $player_arr = implode(" ", $current_state["player_values"]); // Die Funktion implode macht aus dem array ein string mit Leerzeichen als Trennzeichen
-        $tavern_arr = implode(" ", $current_state["tavern_values"]); // Die Funktion implode macht aus dem array ein string mit Leerzeichen als Trennzeichen
-        $player_id = 1; // Hier sollte später die richtige id des spielers benutzt werden z.B. $_SESSION["player_id"]
-
-        $stmt_update->execute();
-        $stmt_update->close();
+        self::_setState($current_state);
 
         $player_values_count = count($current_state["player_values"]);
         $tavern_values_count = count($current_state["tavern_values"]);
@@ -70,17 +63,17 @@ class DiceGame {
              * den letzten wert im array um immer nur so viele Werte
              * wie in DICE_MAX_TURNS_BEFORE_END definiert zu haben
             */
-            if ($player_values_count > DICE_MAX_TURNS_BEFORE_END)
+            if ($player_values_count > DICE_MAX_TURNS_BEFORE_END || $tavern_values_count > DICE_MAX_TURNS_BEFORE_END)
+            {
                 array_pop($current_state["player_values"]);
-
-            if ($tavern_values_count > DICE_MAX_TURNS_BEFORE_END)
                 array_pop($current_state["tavern_values"]);
+
+                // Setze Werte in der DB zurück
+                self::_setState($current_state);
+            }
 
             http_response_code(400);
             return;
-            // return [
-            //     "message" => "Es wurden alle " . DICE_MAX_TURNS_BEFORE_END . " Runden gespielt. <br /><br /> Spiel wird ausgewertet..."
-            // ];
         }
 
         /* Sende nachdem würfeln nur die Werte des Spielers zurück, 
@@ -214,6 +207,18 @@ class DiceGame {
 
         return ["player_values" => $player_values, 
                 "tavern_values" => $tavern_values];
+    }
+
+    private function _setState($new_state)
+    {
+        $stmt_update = $this->db->prepare("UPDATE tavern SET player_values = ?, tavern_values = ? WHERE player_id = ?");
+        $stmt_update->bind_param("ssi", $player_arr, $tavern_arr, $player_id);
+        $player_arr = implode(" ", $new_state["player_values"]); // Die Funktion implode macht aus dem array ein string mit Leerzeichen als Trennzeichen
+        $tavern_arr = implode(" ", $new_state["tavern_values"]); // Die Funktion implode macht aus dem array ein string mit Leerzeichen als Trennzeichen
+        $player_id = 1; // Hier sollte später die richtige id des spielers benutzt werden z.B. $_SESSION["player_id"]
+
+        $stmt_update->execute();
+        $stmt_update->close();
     }
 
     private function _deleteGameOnFinished()
