@@ -46,6 +46,11 @@
         <div id="notifications" class="notifications">
         </div>
     </div>
+
+    <audio id="sound" src="" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
     <script src="./js/bundle.js"></script>
 </body>
 

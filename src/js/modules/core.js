@@ -3,6 +3,7 @@ let btnStake = document.getElementById('btn-stake');
 let btnEnd = document.getElementById('btn-end');
 let money = document.getElementById("money");
 let stake = document.getElementById("stake");
+let soundManager = document.getElementById("sound");
 
 const TURNS_BEFORE_END = 3;
 const MAX_TURNS_BEFORE_END = 5;
@@ -24,7 +25,15 @@ btnStake.addEventListener("click", () => {
 });
 
 btnDice.addEventListener("click", () => {
+    playSound("./audio/dice.mp3");
     roll();
+});
+
+btnDice.addEventListener("touchend", (evt) => {
+    playSound("./audio/dice.mp3");
+    roll();
+
+    evt.preventDefault();
 });
 
 btnEnd.addEventListener("click", () => {
@@ -126,16 +135,21 @@ function finishGame() {
                 {
                     case 0:
                     {
+                        playSound("./audio/game_over.mp3");
                         showNotification("Es tut uns leid :-(<br /><br />Du hast leider verloren");
+                        
                         break;
                     }
                     case 1:
                     {
+                        playSound("./audio/won.mp3");
                         showNotification("Juppppiiiieee!!!<br /><br />Du hast gewonnen :-)");
+                        
                         break;
                     }
                     case 2:
                     {
+                        playSound("./audio/game_over.mp3");
                         showNotification("Sei nicht traurig...<br /><br />Bei einem unentschieden verliert man schließlich auch sein Einsatz nicht ;-)");
                         break;
                     }
@@ -270,4 +284,11 @@ function showNotification(message, duration = 5000)
             }
         }, 50);
     }, duration);
+}
+
+function playSound(sound)
+{
+    soundManager.setAttribute("src", sound);
+
+    soundManager.play();
 }
