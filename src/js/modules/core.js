@@ -104,11 +104,6 @@ function roll() {
         }
         else if (xhttp.readyState == 4 && xhttp.status == 400) 
         {
-            /* if (response.message && response.message.length > 0)
-            {
-                showNotification(response.message);
-            } */
-
             finishGame();
         }
     }
@@ -208,7 +203,7 @@ function onGameFinished()
                 item.remove();
             }, 250 + (index * 250));
         });
-    }, 10000);
+    }, 9000);
 }
 
 function addResult(element, result, delay = 0)

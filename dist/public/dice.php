@@ -13,7 +13,7 @@ $Game = new Game\Dice($pdo);
 
 if(isset($_POST["action"]) && $_POST["action"] == "dice_start")
 {
-    if (!$Game->isRunning() && isset($_POST["stake"]) && $_POST["stake"] > 0)
+    if (!$Game->isRunning() && isset($_POST["stake"]) && !empty($_POST["stake"]))
     {
         echo json_encode($Game->newGame($_POST["stake"]));
     } else if($Game->isRunning())

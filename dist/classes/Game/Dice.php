@@ -161,10 +161,10 @@ class Dice {
         $stmt->execute(array(1));// Hier sollte später die richtige id des nutzers benutzt werden z.B. $_SESSION["player_id"]
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($result["count"] > 0)
-            return true;
+        if (empty($result["count"]))
+            return false;
 
-        return false;
+        return true;
     }
 
     public function getPlayerMoney()
@@ -187,7 +187,7 @@ class Dice {
         $player_values = array();
         $tavern_values = array();
 
-        if ($result["player_values"] != "")
+        if (!empty($result["player_values"]))
         {
             $player_values = explode(" ", $result["player_values"]);
             $tavern_values = explode(" ", $result["tavern_values"]);
