@@ -1,15 +1,15 @@
 <?php
 require_once("../inc/config.inc.php");
-require_once("../classes/DiceGame.php");
+require_once("../classes/Game/Dice.php");
 
-$connection = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-
-if ($connection->connect_errno) {
-    echo "Failed to connect to MySQL: (" . $connection>connect_errno . ") " . $connection->connect_error;
+try {
+    $pdo = new PDO("mysql:host=". DB_HOST . ";dbname=" .DB_NAME, DB_USER, DB_PASSWORD);
+} catch (PDOException $e) {
+    print "Error!: " . $e->getMessage() . "<br/>";
     die();
-}
+ }
 
-$Game = new DiceGame($connection);
+$Game = new Game\Dice($pdo);
 
 if(isset($_POST["action"]) && $_POST["action"] == "dice_start")
 {

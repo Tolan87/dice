@@ -1,6 +1,9 @@
 <?php
+namespace Game;
 
-class DiceGame {
+use \PDO;
+
+class Dice {
 
     private $db;
 
@@ -25,13 +28,15 @@ class DiceGame {
 
         // Wenn genug Geld vorhanden, trage ein neues Spiel in die Datenbank ein
         $stmt = $this->db->prepare("INSERT INTO tavern (player_id, player_values, tavern_values, stake) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("issi", $player_id, $player_values, $tavern_values, $stake);
-        $player_id = 1; // Hier sollte später die richtige id des nutzers benutzt werden z.B. $_SESSION["player_id"]
+        $stmt->bindParam(1, $player_id); // Hier sollte später die richtige id des nutzers benutzt werden z.B. $_SESSION["player_id"]
+        $stmt->bindParam(2, $player_values);
+        $stmt->bindParam(3, $tavern_values);
+        $stmt->bindParam(4, $stake);
+        $player_id = 1; 
         $player_values = "";
         $tavern_values = "";
 
         $stmt->execute();
-        $stmt->close();
 
         self::_setPlayerMoney($player_new_money);
 
@@ -85,18 +90,14 @@ class DiceGame {
 
     public function onFinished()
     {
-        $stmt_current_state = $this->db->prepare("SELECT player_values, tavern_values, stake FROM tavern WHERE player_id = ?");
-        $stmt_current_state->bind_param("i", $player_id);
-        $player_id = 1; // Hier sollte später die richtige id des spielers benutzt werden z.B. $_SESSION["player_id"]
+        $stmt = $this->db->prepare("SELECT player_values, tavern_values, stake FROM tavern WHERE player_id = ?");
 
-        $stmt_current_state->execute();
-        $result_current = $stmt_current_state->get_result();
-        $row_current = $result_current->fetch_assoc();
-        $stmt_current_state->close();
+        $stmt->execute(array(1)); // Hier sollte später die richtige id des spielers benutzt werden z.B. $_SESSION["player_id"]
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        $player_values = explode(" ", $row_current["player_values"]);
-        $tavern_values = explode(" ", $row_current["tavern_values"]);
-        $stake = $row_current["stake"];
+        $player_values = explode(" ", $result["player_values"]);
+        $tavern_values = explode(" ", $result["tavern_values"]);
+        $stake = $result["stake"];
 
         // Prüfen ob der Spieler versucht das spiel aufzulösen, obwohl die mindest anzahl an Runden nicht erfüllt ist
         if (count($player_values) < DICE_TURNS_BEFORE_END || count($tavern_values) < DICE_TURNS_BEFORE_END)
@@ -156,15 +157,11 @@ class DiceGame {
     public function isRunning()
     {
         $stmt = $this->db->prepare("SELECT COUNT(*) AS count FROM tavern WHERE player_id = ?");
-        $stmt->bind_param("i", $player_id);
-        $player_id = 1; // Hier sollte später die richtige id des nutzers benutzt werden z.B. $_SESSION["player_id"]
 
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $row = $result->fetch_assoc();
-        $stmt->close();
+        $stmt->execute(array(1));// Hier sollte später die richtige id des nutzers benutzt werden z.B. $_SESSION["player_id"]
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($row["count"] > 0)
+        if ($result["count"] > 0)
             return true;
 
         return false;
@@ -173,36 +170,27 @@ class DiceGame {
     public function getPlayerMoney()
     {
         $stmt = $this->db->prepare("SELECT money FROM players WHERE id = ?");
-        $stmt->bind_param("i", $player_id);
-        $player_id = 1; // Hier sollte später die richtige id des spielers benutzt werden z.B. $_SESSION["player_id"]
+         
+        $stmt->execute(array(1)); // Hier sollte später die richtige id des spielers benutzt werden z.B. $_SESSION["player_id"]
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $stmt->close();
-
-        $row = $result->fetch_assoc();
-
-        return $row;
+        return $result;
     }
 
     private function _getCurrentState() 
     {
-        $stmt_current_state = $this->db->prepare("SELECT player_values, tavern_values FROM tavern WHERE player_id = ?");
-        $stmt_current_state->bind_param("i", $player_id);
-        $player_id = 1; // Hier sollte später die richtige id des spielers benutzt werden z.B. $_SESSION["player_id"]
+        $stmt = $this->db->prepare("SELECT player_values, tavern_values FROM tavern WHERE player_id = ?");
 
-        $stmt_current_state->execute();
-        $result_current = $stmt_current_state->get_result();
-        $row_current = $result_current->fetch_assoc();
-        $stmt_current_state->close();
+        $stmt->execute(array(1)); // Hier sollte später die richtige id des spielers benutzt werden z.B. $_SESSION["player_id"]
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
         $player_values = array();
         $tavern_values = array();
 
-        if ($row_current["player_values"] != "")
+        if ($result["player_values"] != "")
         {
-            $player_values = explode(" ", $row_current["player_values"]);
-            $tavern_values = explode(" ", $row_current["tavern_values"]);
+            $player_values = explode(" ", $result["player_values"]);
+            $tavern_values = explode(" ", $result["tavern_values"]);
         }
 
         return ["player_values" => $player_values, 
@@ -211,34 +199,37 @@ class DiceGame {
 
     private function _setState($new_state)
     {
-        $stmt_update = $this->db->prepare("UPDATE tavern SET player_values = ?, tavern_values = ? WHERE player_id = ?");
-        $stmt_update->bind_param("ssi", $player_arr, $tavern_arr, $player_id);
+        $stmt = $this->db->prepare("UPDATE tavern SET player_values = ?, tavern_values = ? WHERE player_id = ?");
+        $stmt->bindParam(1, $player_arr);
+        $stmt->bindParam(2, $tavern_arr);
+        $stmt->bindParam(3, $player_id);
+
         $player_arr = implode(" ", $new_state["player_values"]); // Die Funktion implode macht aus dem array ein string mit Leerzeichen als Trennzeichen
         $tavern_arr = implode(" ", $new_state["tavern_values"]); // Die Funktion implode macht aus dem array ein string mit Leerzeichen als Trennzeichen
         $player_id = 1; // Hier sollte später die richtige id des spielers benutzt werden z.B. $_SESSION["player_id"]
 
-        $stmt_update->execute();
-        $stmt_update->close();
+        $stmt->execute();
     }
 
     private function _deleteGameOnFinished()
     {
         $stmt = $this->db->prepare("DELETE FROM tavern WHERE player_id = ?");
-        $stmt->bind_param("i", $player_id);
+        $stmt->bindParam(1, $player_id);
+
         $player_id = 1; // Hier sollte später die richtige id des spielers benutzt werden z.B. $_SESSION["player_id"]
 
         $stmt->execute();
-        $stmt->close();
     }
 
     private function _setPlayerMoney($money)
     {
         $stmt = $this->db->prepare("UPDATE players SET money = ? WHERE id = ?");
-        $stmt->bind_param("ii", $money, $player_id);
+        $stmt->bindParam(1, $money);
+        $stmt->bindParam(2, $player_id);
+
         $player_id = 1; // Hier sollte später die richtige id des spielers benutzt werden z.B. $_SESSION["player_id"]
 
         $stmt->execute();
-        $stmt->close();
     }
 }
 ?>
