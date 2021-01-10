@@ -34,6 +34,7 @@
                     <input type="submit" id="btn-stake" class="btn" name="dice_stake" value="Setzen" disabled />
                     <input type="submit" id="btn-start" class="btn" name="dice_start" value="Würfeln" disabled />
                     <input type="submit" id="btn-end" class="btn" name="dice_end" value="Auflösen" disabled />
+                    <input type="submit" id="btn-new" class="btn" name="dice_new" style="display: none" value="Neues Spiel starten" />
                 </div>
             </div>
         </div>
@@ -44,15 +45,6 @@
         </footer>
 
         <div id="notifications" class="notifications">
-        </div>
-
-        <div class="card new-game">
-            <div class="card-header new-game-header">
-                <span style="font-weight: bold">NEW GAME</span>
-            </div>
-            <div class="card-body new-game-body">
-                <input type="submit" id="btn-new" class="btn" name="dice_new" value="Neues Spiel starten" />
-            </div>
         </div>
     </div>
 

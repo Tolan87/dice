@@ -2,7 +2,6 @@ let btnDice = document.getElementById('btn-start');
 let btnStake = document.getElementById('btn-stake');
 let btnEnd = document.getElementById('btn-end');
 let btnNew = document.getElementById("btn-new");
-let cardNewGame = document.querySelector(".new-game");
 let money = document.getElementById("money");
 let stake = document.getElementById("stake");
 let soundManager = document.getElementById("sound");
@@ -56,7 +55,23 @@ btnNew.addEventListener("click", () => {
         }, 250 + (index * 250));
     });
 
-    cardNewGame.style.display = "none";
+    setTimeout(() => {
+        stake.style.visibility = "visible";
+    }, 250);
+
+    setTimeout(() => {
+        btnStake.style.visibility = "visible";
+    }, 500);
+
+    setTimeout(() => {
+        btnDice.style.visibility = "visible";
+    }, 750);
+
+    setTimeout(() => {
+        btnEnd.style.visibility = "visible";
+    }, 1000);
+
+    btnNew.style.display = "none";
     stake.removeAttribute("disabled");
 });
 
@@ -172,12 +187,20 @@ function finishGame() {
 
 function onGameFinished() {
     stake.value = null;
-    stake.setAttribute("disabled", "");
-    btnStake.setAttribute("disabled", "");
-    btnDice.setAttribute("disabled", "");
-    btnEnd.setAttribute("disabled", "");
 
-    cardNewGame.style.display = "block";
+    stake.setAttribute("disabled", "");
+    stake.style.visibility = "hidden";
+
+    btnStake.setAttribute("disabled", "");
+    btnStake.style.visibility = "hidden";
+
+    btnDice.setAttribute("disabled", "");
+    btnDice.style.visibility = "hidden";
+
+    btnEnd.setAttribute("disabled", "");
+    btnEnd.style.visibility = "hidden";
+
+    btnNew.style.display = "block";
 }
 
 function addResult(element, result, delay = 0) {
