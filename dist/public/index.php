@@ -45,6 +45,15 @@
 
         <div id="notifications" class="notifications">
         </div>
+
+        <div class="card new-game">
+            <div class="card-header new-game-header">
+                <span style="font-weight: bold">NEW GAME</span>
+            </div>
+            <div class="card-body new-game-body">
+                <input type="submit" id="btn-new" class="btn" name="dice_new" value="Neues Spiel starten" />
+            </div>
+        </div>
     </div>
 
     <audio id="sound" src="" type="audio/mpeg">

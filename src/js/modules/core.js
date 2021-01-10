@@ -1,6 +1,8 @@
 let btnDice = document.getElementById('btn-start');
 let btnStake = document.getElementById('btn-stake');
 let btnEnd = document.getElementById('btn-end');
+let btnNew = document.getElementById("btn-new");
+let cardNewGame = document.querySelector(".new-game");
 let money = document.getElementById("money");
 let stake = document.getElementById("stake");
 let soundManager = document.getElementById("sound");
@@ -14,9 +16,10 @@ window.addEventListener("load", () => {
 
 stake.addEventListener("input", () => {
     if (!isNaN(stake.value) && stake.value > 0)
-        btnStake.disabled = false;
+        btnStake.removeAttribute("disabled");
     else {
-        btnStake.disabled = true;
+        btnStake.setAttribute("disabled", "");
+        
     }
 });
 
@@ -38,11 +41,23 @@ btnDice.addEventListener("touchend", (evt) => {
 
 btnEnd.addEventListener("click", () => {
     finishGame();
+});
 
-    stake.disabled = true;
-    btnStake.disabled = true;
-    btnDice.disabled = true;
-    btnEnd.disabled = true;
+btnNew.addEventListener("click", () => {
+    document.getElementById("player-result").querySelectorAll("li").forEach((item, index) => {
+        setTimeout(() => {
+            item.remove();
+        }, 250 + (index * 250));
+    });
+
+    document.getElementById("tavern-result").querySelectorAll("li").forEach((item, index) => {
+        setTimeout(() => {
+            item.remove();
+        }, 250 + (index * 250));
+    });
+
+    cardNewGame.style.display = "none";
+    stake.removeAttribute("disabled");
 });
 
 function startGame(stake) {
@@ -58,15 +73,15 @@ function startGame(stake) {
             if (!isNaN(response.money))
                 money.innerHTML = response.money;
 
-            btnStake.disabled = true;
-            btnDice.disabled = false;
+            btnStake.setAttribute("disabled", "");
+            btnDice.removeAttribute("disabled");
         } else if (xhttp.readyState == 4 && xhttp.status == 400) {
             if (response.message && response.message.length > 0) {
                 showNotification(response.message);
             }
 
-            btnStake.disabled = false;
-            btnDice.disabled = true;
+            btnStake.removeAttribute("disabled");
+            btnDice.setAttribute("disabled", "");
         }
     }
 
@@ -84,7 +99,7 @@ function roll() {
             console.log(response);
 
             if (response.player_values.length >= TURNS_BEFORE_END) {
-                btnEnd.disabled = false;
+                btnEnd.removeAttribute("disabled");
             }
 
             addResult("player-result", response.player_values);
@@ -94,7 +109,7 @@ function roll() {
             response.player_values.forEach((result) => {
                 tavern_values.push("0");
             });
-            addResult("tavern-result", tavern_values, 1000);
+            addResult("tavern-result", tavern_values, 500);
         } else if (xhttp.readyState == 4 && xhttp.status == 400) {
             finishGame();
         }
@@ -145,8 +160,8 @@ function finishGame() {
                 showNotification(response.message);
             }
 
-            btnDice.disabled = false;
-            btnEnd.disabled = true;
+            btnDice.removeAttribute("disabled");
+            btnEnd.setAttribute("disabled", "");
         }
     }
 
@@ -157,35 +172,12 @@ function finishGame() {
 
 function onGameFinished() {
     stake.value = null;
-    stake.disabled = true;
-    btnStake.disabled = true;
-    btnDice.disabled = true;
-    btnEnd.disabled = true;
+    stake.setAttribute("disabled", "");
+    btnStake.setAttribute("disabled", "");
+    btnDice.setAttribute("disabled", "");
+    btnEnd.setAttribute("disabled", "");
 
-    let i = 10;
-    let clearInt = setInterval(() => {
-        showNotification("Spiel startet neu in " + i + " sekunden", 1000);
-        i--;
-
-        if (i == 0) {
-            stake.disabled = false;
-            clearInterval(clearInt);
-        }
-    }, 1000);
-
-    setTimeout(() => {
-        document.getElementById("player-result").querySelectorAll("li").forEach((item, index) => {
-            setTimeout(() => {
-                item.remove();
-            }, 250 + (index * 250));
-        });
-
-        document.getElementById("tavern-result").querySelectorAll("li").forEach((item, index) => {
-            setTimeout(() => {
-                item.remove();
-            }, 250 + (index * 250));
-        });
-    }, 9000);
+    cardNewGame.style.display = "block";
 }
 
 function addResult(element, result, delay = 0) {
