@@ -7,7 +7,7 @@ class Dice {
 
     private $db;
 
-    public function __construct($db_connection)
+    public function __construct(PDO $db_connection)
     {
         $this->db = $db_connection;
     }

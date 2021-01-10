@@ -47,25 +47,21 @@ btnEnd.addEventListener("click", () => {
 
 function startGame(stake) {
     let xhttp = new XMLHttpRequest();
-    xhttp.onload = function() {
+    xhttp.onload = function () {
         let response = JSON.parse(xhttp.responseText);
-        
-        if (xhttp.readyState == 4 && xhttp.status == 200)
-        {
-            if (response.message && response.message.length > 0)
-            {
+
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+            if (response.message && response.message.length > 0) {
                 showNotification(response.message);
             }
 
             if (!isNaN(response.money))
                 money.innerHTML = response.money;
-            
+
             btnStake.disabled = true;
             btnDice.disabled = false;
-        }
-        else if (xhttp.readyState == 4 && xhttp.status == 400) {
-            if (response.message && response.message.length > 0)
-            {
+        } else if (xhttp.readyState == 4 && xhttp.status == 400) {
+            if (response.message && response.message.length > 0) {
                 showNotification(response.message);
             }
 
@@ -81,15 +77,13 @@ function startGame(stake) {
 
 function roll() {
     let xhttp = new XMLHttpRequest();
-    xhttp.onload = function() {
+    xhttp.onload = function () {
         let response = JSON.parse(xhttp.responseText);
 
-        if (xhttp.readyState == 4 && xhttp.status == 200) 
-        {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
             console.log(response);
 
-            if (response.player_values.length >= TURNS_BEFORE_END)
-            {
+            if (response.player_values.length >= TURNS_BEFORE_END) {
                 btnEnd.disabled = false;
             }
 
@@ -101,9 +95,7 @@ function roll() {
                 tavern_values.push("0");
             });
             addResult("tavern-result", tavern_values, 1000);
-        }
-        else if (xhttp.readyState == 4 && xhttp.status == 400) 
-        {
+        } else if (xhttp.readyState == 4 && xhttp.status == 400) {
             finishGame();
         }
     }
@@ -115,49 +107,41 @@ function roll() {
 
 function finishGame() {
     let xhttp = new XMLHttpRequest();
-    xhttp.onload = function() {
+    xhttp.onload = function () {
         let response = JSON.parse(xhttp.responseText);
 
-        if (xhttp.readyState == 4 && xhttp.status == 200) 
-        {
-                // console.log(response.player_values);
-                // console.log(response.tavern_values);
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+            // console.log(response.player_values);
+            // console.log(response.tavern_values);
 
-                addResult("player-result", response.player_values);
-                addResult("tavern-result", response.tavern_values);
+            addResult("player-result", response.player_values);
+            addResult("tavern-result", response.tavern_values);
 
-                switch (response.won)
-                {
-                    case 0:
-                    {
-                        playSound("./audio/game_over.mp3");
-                        showNotification("Es tut uns leid :-(<br /><br />Du hast leider verloren");
-                        
-                        break;
-                    }
-                    case 1:
-                    {
-                        playSound("./audio/won.mp3");
-                        showNotification("Juppppiiiieee!!!<br /><br />Du hast gewonnen :-)");
-                        
-                        break;
-                    }
-                    case 2:
-                    {
-                        playSound("./audio/game_over.mp3");
-                        showNotification("Sei nicht traurig...<br /><br />Bei einem unentschieden verliert man schließlich auch sein Einsatz nicht ;-)");
-                        break;
-                    }
+            switch (response.won) {
+                case 0: {
+                    playSound("./audio/game_over.mp3");
+                    showNotification("Es tut uns leid :-(<br /><br />Du hast leider verloren");
+
+                    break;
                 }
+                case 1: {
+                    playSound("./audio/won.mp3");
+                    showNotification("Juppppiiiieee!!!<br /><br />Du hast gewonnen :-)");
 
-                money.innerHTML = response.money;
+                    break;
+                }
+                case 2: {
+                    playSound("./audio/game_over.mp3");
+                    showNotification("Sei nicht traurig...<br /><br />Bei einem unentschieden verliert man schließlich auch sein Einsatz nicht ;-)");
+                    break;
+                }
+            }
 
-                onGameFinished();
-        } 
-        else if (xhttp.readyState == 4 && xhttp.status == 400) 
-        {
-            if (response.message && response.message.length > 0)
-            {
+            money.innerHTML = response.money;
+
+            onGameFinished();
+        } else if (xhttp.readyState == 4 && xhttp.status == 400) {
+            if (response.message && response.message.length > 0) {
                 showNotification(response.message);
             }
 
@@ -171,8 +155,7 @@ function finishGame() {
     xhttp.send("action=dice_end");
 }
 
-function onGameFinished()
-{
+function onGameFinished() {
     stake.value = null;
     stake.disabled = true;
     btnStake.disabled = true;
@@ -181,11 +164,10 @@ function onGameFinished()
 
     let i = 10;
     let clearInt = setInterval(() => {
-        showNotification("Spiel startet neu in " + i +" sekunden", 1000);
+        showNotification("Spiel startet neu in " + i + " sekunden", 1000);
         i--;
 
-        if (i == 0)
-        {
+        if (i == 0) {
             stake.disabled = false;
             clearInterval(clearInt);
         }
@@ -206,34 +188,32 @@ function onGameFinished()
     }, 9000);
 }
 
-function addResult(element, result, delay = 0)
-{
+function addResult(element, result, delay = 0) {
     let parent = document.getElementById(element);
-    
+
     setTimeout(() => {
         // remove li elements from unordered list
         parent.querySelectorAll("li").forEach((item) => {
             item.remove();
         });
 
-        for (let i = 0;i < result.length; i++) {
+        for (let i = 0; i < result.length; i++) {
             let liNode = document.createElement("li");
 
             let imgNode = document.createElement("img");
             imgNode.setAttribute("height", "30");
             imgNode.setAttribute("width", "30");
             imgNode.setAttribute("src", './img/dice_' + result[i] + '.png');
-            
+
             liNode.appendChild(imgNode);
             parent.appendChild(liNode);
         }
     }, delay);
 }
 
-function getPlayerMoney()
-{
+function getPlayerMoney() {
     let xhttp = new XMLHttpRequest();
-    xhttp.onload = function() {
+    xhttp.onload = function () {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
             money.innerHTML = JSON.parse(xhttp.responseText).money;
         }
@@ -244,8 +224,7 @@ function getPlayerMoney()
     xhttp.send("action=get_player_money");
 }
 
-function showNotification(message, duration = 5000)
-{
+function showNotification(message, duration = 5000) {
     let parent = document.getElementById("notifications");
 
     let notification = document.createElement("div");
@@ -268,12 +247,11 @@ function showNotification(message, duration = 5000)
     let opacity = notification.style.opacity;
 
     setTimeout(() => {
-        let clrIntervall = setInterval(() => { 
+        let clrIntervall = setInterval(() => {
             opacity -= 0.075;
             notification.style.opacity = opacity;
-    
-            if (opacity <= 0)
-            {
+
+            if (opacity <= 0) {
                 notification.remove();
                 clearInterval(clrIntervall);
             }
@@ -281,8 +259,7 @@ function showNotification(message, duration = 5000)
     }, duration);
 }
 
-function playSound(sound)
-{
+function playSound(sound) {
     soundManager.setAttribute("src", sound);
 
     soundManager.play();

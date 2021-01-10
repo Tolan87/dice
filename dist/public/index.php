@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
     <link rel="stylesheet" type="text/css" href="./css/style.css">
-    <title>Dice - Test</title>
+    <title>Dice - Game</title>
 </head>
 
 <body>
@@ -51,7 +51,7 @@
         Your browser does not support the audio element.
     </audio>
 
-    <script src="./js/bundle.js"></script>
+    <script src="./js/app.bundle.js"></script>
 </body>
 
 </html>
