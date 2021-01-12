@@ -163,7 +163,7 @@ function onGameFinished() {
     btnStake.setAttribute("disabled", "");
     btnDice.setAttribute("disabled", "");
     btnEnd.setAttribute("disabled", "");
-    document.querySelector(".controls").firstElementChild.style.display = "none";
+    document.querySelector(".controls").querySelector("fieldset").style.display = "none";
 
     btnNew.style.display = "block";
 }
@@ -182,7 +182,7 @@ function onNewGame() {
     });
 
     btnNew.style.display = "none";
-    document.querySelector(".controls").firstElementChild.style.display = "block";
+    document.querySelector(".controls").querySelector("fieldset").style.display = "block";
     stake.removeAttribute("disabled");
 }
 
