@@ -8,6 +8,7 @@ let soundManager = document.getElementById("sound");
 
 const TURNS_BEFORE_END = 3;
 const MAX_TURNS_BEFORE_END = 5;
+const DELAY_REMOVE_RESULTS = 250;
 
 window.addEventListener("load", () => {
     getPlayerMoney();
@@ -94,7 +95,7 @@ function roll() {
             response.player_values.forEach((result) => {
                 tavern_values.push("0");
             });
-            addResult("tavern-result", tavern_values, 500);
+            addResult("tavern-result", tavern_values, 350);
         } else if (xhttp.readyState == 4 && xhttp.status == 400) {
             finishGame();
         }
@@ -171,18 +172,22 @@ function onNewGame() {
     document.getElementById("player-result").querySelectorAll("li").forEach((item, index) => {
         setTimeout(() => {
             item.remove();
-        }, 250 + (index * 250));
+        }, DELAY_REMOVE_RESULTS + (index * DELAY_REMOVE_RESULTS));
     });
 
     document.getElementById("tavern-result").querySelectorAll("li").forEach((item, index) => {
         setTimeout(() => {
             item.remove();
-        }, 250 + (index * 250));
+        }, DELAY_REMOVE_RESULTS + (index * DELAY_REMOVE_RESULTS));
     });
 
-    btnNew.style.display = "none";
-    stake.removeAttribute("disabled");
-    document.querySelector(".controls").querySelector("fieldset").style.display = "block";
+    let resultCount = document.getElementById("player-result").children.length;
+
+    setTimeout(() => {
+        btnNew.style.display = "none";
+        stake.removeAttribute("disabled");
+        document.querySelector(".controls").querySelector("fieldset").style.display = "block";
+    }, resultCount * DELAY_REMOVE_RESULTS);
 }
 
 function addResult(element, result, delay = 0) {
