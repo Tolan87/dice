@@ -43,36 +43,7 @@ btnEnd.addEventListener("click", () => {
 });
 
 btnNew.addEventListener("click", () => {
-    document.getElementById("player-result").querySelectorAll("li").forEach((item, index) => {
-        setTimeout(() => {
-            item.remove();
-        }, 250 + (index * 250));
-    });
-
-    document.getElementById("tavern-result").querySelectorAll("li").forEach((item, index) => {
-        setTimeout(() => {
-            item.remove();
-        }, 250 + (index * 250));
-    });
-
-    setTimeout(() => {
-        stake.style.visibility = "visible";
-    }, 250);
-
-    setTimeout(() => {
-        btnStake.style.visibility = "visible";
-    }, 500);
-
-    setTimeout(() => {
-        btnDice.style.visibility = "visible";
-    }, 750);
-
-    setTimeout(() => {
-        btnEnd.style.visibility = "visible";
-    }, 1000);
-
-    btnNew.style.display = "none";
-    stake.removeAttribute("disabled");
+    onNewGame();
 });
 
 function startGame(stake) {
@@ -189,18 +160,30 @@ function onGameFinished() {
     stake.value = null;
 
     stake.setAttribute("disabled", "");
-    stake.style.visibility = "hidden";
-
     btnStake.setAttribute("disabled", "");
-    btnStake.style.visibility = "hidden";
-
     btnDice.setAttribute("disabled", "");
-    btnDice.style.visibility = "hidden";
-
     btnEnd.setAttribute("disabled", "");
-    btnEnd.style.visibility = "hidden";
+    document.querySelector(".controls").firstElementChild.style.display = "none";
 
     btnNew.style.display = "block";
+}
+
+function onNewGame() {
+    document.getElementById("player-result").querySelectorAll("li").forEach((item, index) => {
+        setTimeout(() => {
+            item.remove();
+        }, 250 + (index * 250));
+    });
+
+    document.getElementById("tavern-result").querySelectorAll("li").forEach((item, index) => {
+        setTimeout(() => {
+            item.remove();
+        }, 250 + (index * 250));
+    });
+
+    btnNew.style.display = "none";
+    document.querySelector(".controls").firstElementChild.style.display = "block";
+    stake.removeAttribute("disabled");
 }
 
 function addResult(element, result, delay = 0) {

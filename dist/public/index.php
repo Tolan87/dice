@@ -27,13 +27,15 @@
                 </ul>
 
                 <div class="controls">
-                    <label class="dice-label">Guthaben:</label>
-                    <label id="money" class="dice-label"></label>
-                    <label for="stake" class="dice-label block">Einsatz</label>
-                    <input type="number" id="stake" class="dice-control" name="stake" />
-                    <input type="submit" id="btn-stake" class="btn" name="dice_stake" value="Setzen" disabled />
-                    <input type="submit" id="btn-start" class="btn" name="dice_start" value="Würfeln" disabled />
-                    <input type="submit" id="btn-end" class="btn" name="dice_end" value="Auflösen" disabled />
+                    <fieldset>
+                        <label class="dice-label">Guthaben:</label>
+                        <label id="money" class="dice-label"></label>
+                        <label for="stake" class="dice-label block">Einsatz</label>
+                        <input type="number" id="stake" class="dice-control" name="stake" />
+                        <input type="submit" id="btn-stake" class="btn" name="dice_stake" value="Setzen" disabled />
+                        <input type="submit" id="btn-start" class="btn" name="dice_start" value="Würfeln" disabled />
+                        <input type="submit" id="btn-end" class="btn" name="dice_end" value="Auflösen" disabled />
+                    </fieldset>
                     <input type="submit" id="btn-new" class="btn" name="dice_new" style="display: none" value="Neues Spiel starten" />
                 </div>
             </div>
