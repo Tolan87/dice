@@ -18,7 +18,6 @@ stake.addEventListener("input", () => {
         btnStake.removeAttribute("disabled");
     else {
         btnStake.setAttribute("disabled", "");
-        
     }
 });
 
@@ -182,8 +181,8 @@ function onNewGame() {
     });
 
     btnNew.style.display = "none";
-    document.querySelector(".controls").querySelector("fieldset").style.display = "block";
     stake.removeAttribute("disabled");
+    document.querySelector(".controls").querySelector("fieldset").style.display = "block";
 }
 
 function addResult(element, result, delay = 0) {
