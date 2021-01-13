@@ -57,7 +57,7 @@ function startGame(stake) {
             }
 
             if (!isNaN(response.money))
-                money.innerHTML = response.money;
+                money.innerHTML = response.money + " Taler";
 
             btnStake.setAttribute("disabled", "");
             btnDice.removeAttribute("disabled");
@@ -138,7 +138,7 @@ function finishGame() {
                 }
             }
 
-            money.innerHTML = response.money;
+            money.innerHTML = response.money + " Taler";
 
             onGameFinished();
         } else if (xhttp.readyState == 4 && xhttp.status == 400) {
@@ -217,7 +217,7 @@ function getPlayerMoney() {
     let xhttp = new XMLHttpRequest();
     xhttp.onload = function () {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
-            money.innerHTML = JSON.parse(xhttp.responseText).money;
+            money.innerHTML = JSON.parse(xhttp.responseText).money + " Taler";
         }
     }
 

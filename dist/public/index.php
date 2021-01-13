@@ -28,7 +28,7 @@
 
                 <div class="controls">
                     <label class="dice-label">Guthaben:</label>
-                    <label id="money" class="dice-label"></label>
+                    <label id="money" class="dice-label">0 Taler</label>
                     <fieldset>
                         <label for="stake" class="dice-label block">Einsatz</label>
                         <input type="number" id="stake" class="dice-control" name="stake" />
