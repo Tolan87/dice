@@ -32,11 +32,11 @@
                     <fieldset>
                         <label for="stake" class="dice-label block">Einsatz</label>
                         <input type="number" id="stake" class="dice-control" name="stake" />
-                        <input type="submit" id="btn-stake" class="btn" name="dice_stake" value="Setzen" disabled />
-                        <input type="submit" id="btn-start" class="btn" name="dice_start" value="Würfeln" disabled />
-                        <input type="submit" id="btn-end" class="btn" name="dice_end" value="Auflösen" disabled />
+                        <input type="button" id="btn-stake" class="btn" name="dice_stake" value="Setzen" disabled />
+                        <input type="button" id="btn-start" class="btn" name="dice_start" value="Würfeln" disabled />
+                        <input type="button" id="btn-end" class="btn" name="dice_end" value="Auflösen" disabled />
                     </fieldset>
-                    <input type="submit" id="btn-new" class="btn" name="dice_new" style="display: none" value="Neues Spiel starten" />
+                    <input type="button" id="btn-new" class="btn" name="dice_new" style="display: none" value="Neues Spiel starten" />
                 </div>
             </div>
         </div>

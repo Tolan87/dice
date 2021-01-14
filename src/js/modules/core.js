@@ -16,7 +16,9 @@ window.addEventListener("load", () => {
 
 stake.addEventListener("input", () => {
     if (!isNaN(stake.value) && stake.value > 0)
+    {
         btnStake.removeAttribute("disabled");
+    }
     else {
         btnStake.setAttribute("disabled", "");
     }

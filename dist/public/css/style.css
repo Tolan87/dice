@@ -190,6 +190,7 @@ body {
 
 .btn:disabled {
     background-color: rgb(146, 127, 92);
+    pointer-events: none;
 }
 
 /* Button end */
