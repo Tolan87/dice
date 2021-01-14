@@ -1,6 +1,6 @@
 <?php
 require_once("../inc/config.inc.php");
-require_once("../classes/Game/Dice.php");
+require_once("../src/Game/Dice.php");
 
 try {
     $pdo = new PDO("mysql:host=". DB_HOST . ";dbname=" .DB_NAME, DB_USER, DB_PASSWORD);
