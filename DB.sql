@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Erstellungszeit: 11. Feb 2021 um 11:11
+-- Erstellungszeit: 11. Feb 2021 um 15:42
 -- Server-Version: 10.4.13-MariaDB
 -- PHP-Version: 7.4.9
 
@@ -18,12 +18,6 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Datenbank: `dice`
---
-
--- --------------------------------------------------------
-
---
 -- Tabellenstruktur für Tabelle `players`
 --
 
@@ -32,9 +26,11 @@ CREATE TABLE IF NOT EXISTS `players` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `money` int(11) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `players`
@@ -42,6 +38,15 @@ CREATE TABLE IF NOT EXISTS `players` (
 
 INSERT INTO `players` (`id`, `name`, `money`) VALUES
 (1, 'ToLan', 200);
+
+--
+-- Trigger `players`
+--
+DROP TRIGGER IF EXISTS `OnDelete`;
+DELIMITER $$
+CREATE TRIGGER `OnDelete` AFTER DELETE ON `players` FOR EACH ROW DELETE FROM `tavern` WHERE `tavern`.`player_id` = OLD.id
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -57,6 +62,7 @@ CREATE TABLE IF NOT EXISTS `tavern` (
   `tavern_values` varchar(255) DEFAULT NULL,
   `stake` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 COMMIT;
