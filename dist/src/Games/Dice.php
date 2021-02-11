@@ -1,5 +1,5 @@
 <?php
-namespace Game;
+namespace Games;
 
 use \PDO;
 
@@ -171,7 +171,7 @@ class Dice {
     {
         $stmt = $this->db->prepare("SELECT money FROM players WHERE id = ?");
          
-        $stmt->execute(array($player_id)); // Hier sollte später die richtige id des spielers benutzt werden z.B. $_SESSION["player_id"]
+        $stmt->execute(array($player_id));
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
         return $result;

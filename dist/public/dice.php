@@ -1,6 +1,6 @@
 <?php
 require_once("../inc/config.inc.php");
-require_once("../src/Game/Dice.php");
+require_once("../src/Games/Dice.php");
 
 session_start();
 
@@ -18,7 +18,7 @@ try {
     die();
  }
 
-$Game = new Game\Dice($pdo);
+$Game = new Games\Dice($pdo);
 
 if(isset($_POST["action"]) && $_POST["action"] == "dice_start")
 {
