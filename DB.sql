@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Erstellungszeit: 05. Jan 2021 um 15:50
+-- Erstellungszeit: 11. Feb 2021 um 11:11
 -- Server-Version: 10.4.13-MariaDB
 -- PHP-Version: 7.4.9
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Datenbank: `propania`
+-- Datenbank: `dice`
 --
 
 -- --------------------------------------------------------
@@ -30,27 +30,18 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `players`;
 CREATE TABLE IF NOT EXISTS `players` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `account_id` int(11) NOT NULL,
-  `level` int(11) NOT NULL DEFAULT 1,
-  `experience` int(11) DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
   `money` int(11) NOT NULL,
-  `health` int(11) NOT NULL,
-  `max_health` int(11) NOT NULL,
-  `attack` int(11) NOT NULL,
-  `weapon_id` int(11) NOT NULL,
-  `armor_id` int(11) NOT NULL,
-  `image` text NOT NULL,
-  `role` varchar(255) NOT NULL,
-  `locked` tinyint(4) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Daten für Tabelle `players`
 --
 
-INSERT INTO `players` (`id`, `account_id`, `level`, `experience`, `money`, `health`, `max_health`, `attack`, `weapon_id`, `armor_id`, `image`, `role`, `locked`) VALUES
-(1, 1, 1, 0, 200, 3, 3, 1, 0, 0, './img/avatars/Default.png', 'Player', 0);
+INSERT INTO `players` (`id`, `name`, `money`) VALUES
+(1, 'ToLan', 200);
 
 -- --------------------------------------------------------
 
