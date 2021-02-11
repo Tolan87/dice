@@ -3,19 +3,25 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Erstellungszeit: 11. Feb 2021 um 15:42
+-- Erstellungszeit: 11. Feb 2021 um 16:55
 -- Server-Version: 10.4.13-MariaDB
 -- PHP-Version: 7.4.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
-SET time_zone = "+00:00";
+SET time_zone = "+01:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Datenbank: `dice`
+--
+
+-- --------------------------------------------------------
 
 --
 -- Tabellenstruktur für Tabelle `players`
